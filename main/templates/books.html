@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Книги</title>
+        <link rel="stylesheet" href="{% static './styles/index.css' %}"/>
+        <link rel="stylesheet" href="{% static './styles/checkbox.css' %}"/>
+    </head>
+<body>
+    <section>
+        <div class="create_container"> 
+            <form action="{% url 'add-book' %}" method="POST">
+                {% csrf_token %}
+                <input class="create_input" name="b_title" type="text" placeholder="введите название">
+                <input class="create_input" name="b_subtitle" type="text" placeholder="введите ">
+                <input class="create_input" name="b_author" type="text" placeholder="автор">
+                <input class="create_input" name="b_price" type="text" placeholder="цена">
+                <input class="create_input" name="b_genre" type="text" placeholder="жанр">
+                <input class="create_input" name="b_description" type="text" placeholder="краткое описание">
+                <input class="create_input" name="b_year" type="text" placeholder="год выхода">
+                <button class="create_button">Добавить</button>
+            </form> 
+        </div>
+        <div class="todo_container">
+            {% for bshop in books_list %}
+            <div class="todo_item
+                {% if bshop.is_favorites %}
+                    marked
+                {% endif %}">
+            <div class="todo_item_header">
+                    <!-- <label class="checkbox_container">
+                        <input type="checkbox" >
+                        <span class="checkmark"></span>
+                    </label> -->
+                    <h4>{{bshop.title }}</h4>
+                </div>
+                <div class="todo_item_footer">
+                    <div>
+                        <p>Цена:{{ bshop.price }}</p>
+                        <p>Жанр:{{ bshop.genre }}</p>
+                        <p>Описание:{{ bshop.subtitle }}</p>
+                        <p>Автор:{{ bshop.author }}</p>
+                        <p>Дата вых:{{ bshop.date }}</p>
+                    </div>
+                    <div class="action_buttons">
+                        {% if bshop.is_favorites %}    
+                            <a href="{% url 'unmark-book' bshop.id %}"><img src="{% static './icons/marked.png' %}"></a>
+                        {% else %}
+                            <a href="{% url 'mark-book' bshop.id %}"><img src="{% static './icons/unmarked.png' %}"></a>
+                        {% endif %}    
+                            <a href="{% url 'del-book' bshop.id %}"><img src="{% static './icons/del.png' %}"></a>
+                        
+                    </div>
+                </div>
+                <a href="{% url 'book' bshop.id %}">Подробнее</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+</html>

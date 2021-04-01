@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="veiwport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshop</title>
+</head>
+
+<body
+    <h3><a href="{% url 'books' %}"> Назад</a></h3>
+    <h4>Title: {{ book_d.title }}</h4>
+    <p><b>Subtitle:</b>{{ book_d.subtitle }}</p>
+    <p><b>Author:</b>{{ book_d.author }}</p>
+    <p><b>Description:</b>{{ book_d.description }}</p>
+    <p><b>Year:</b>{{ book_d.year }}</p>
+    <p><b>Genre:</b>{{ book_d.genre }}</p>
+    <p><b>Price:</b>{{ book_d.price }}</p>
+    <p><b>Date:</b>{{ book_d.date }}</p>
+
+</body>
+</html>
